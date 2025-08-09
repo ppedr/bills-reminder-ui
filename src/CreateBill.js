@@ -50,48 +50,57 @@ export default function CreateBill() {
     }
   };
 
-  return (
-    <div>
-      <h2>Create Bill</h2>
-      {error && <p style={{color:'red'}}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Bill Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="date"
-          name="dueDate"
-          value={form.dueDate}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <select name="type" value={form.type} onChange={handleChange}>
-          {billTypes.map((t) => (
-            <option key={t.value} value={t.value}>{t.label}</option>
-          ))}
-        </select>
-        {form.type === 'CREDIT_CARD' && (
-          <select name="cardName" value={form.cardName} onChange={handleChange} required>
-            <option value="" disabled>Select Card</option>
-            {cardNames.map((c) => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-        )}
-        <button type="submit">Save</button>
-      </form>
-    </div>
+  const e = React.createElement;
+  return e(
+    'div',
+    null,
+    e('h2', null, 'Create Bill'),
+    error && e('p', { style: { color: 'red' } }, error),
+    e(
+      'form',
+      { onSubmit: handleSubmit },
+      e('input', {
+        name: 'name',
+        placeholder: 'Bill Name',
+        value: form.name,
+        onChange: handleChange,
+        required: true
+      }),
+      e('input', {
+        type: 'date',
+        name: 'dueDate',
+        value: form.dueDate,
+        onChange: handleChange,
+        required: true
+      }),
+      e('input', {
+        type: 'email',
+        name: 'email',
+        placeholder: 'Email',
+        value: form.email,
+        onChange: handleChange,
+        required: true
+      }),
+      e(
+        'select',
+        { name: 'type', value: form.type, onChange: handleChange },
+        billTypes.map((t) =>
+          e('option', { key: t.value, value: t.value }, t.label)
+        )
+      ),
+      form.type === 'CREDIT_CARD' &&
+        e(
+          'select',
+          {
+            name: 'cardName',
+            value: form.cardName,
+            onChange: handleChange,
+            required: true
+          },
+          e('option', { value: '', disabled: true }, 'Select Card'),
+          cardNames.map((c) => e('option', { key: c, value: c }, c))
+        ),
+      e('button', { type: 'submit' }, 'Save')
+    )
   );
 }

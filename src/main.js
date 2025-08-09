@@ -7,18 +7,23 @@ import CreateBill from './CreateBill.js';
 import BillsList from './BillsList.js';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateBill />} />
-          <Route path="/paid" element={<BillsList status="paid" />} />
-          <Route path="/unpaid" element={<BillsList status="unpaid" />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+  const e = React.createElement;
+  return e(
+    BrowserRouter,
+    null,
+    e(
+      'div',
+      { className: 'container' },
+      e(
+        Routes,
+        null,
+        e(Route, { path: '/', element: e(Home) }),
+        e(Route, { path: '/create', element: e(CreateBill) }),
+        e(Route, { path: '/paid', element: e(BillsList, { status: 'paid' }) }),
+        e(Route, { path: '/unpaid', element: e(BillsList, { status: 'unpaid' }) })
+      )
+    )
   );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')).render(React.createElement(App));
