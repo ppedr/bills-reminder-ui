@@ -1,0 +1,8 @@
+{
+  "name": "bills-reminder-ui",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo 'No tests configured'"
+  }
+}
