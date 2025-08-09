@@ -1,0 +1,97 @@
+import React, { useState } from 'https://esm.sh/react@18';
+import { useNavigate } from 'https://esm.sh/react-router-dom@6';
+import { createBill } from './api.js';
+
+const billTypes = [
+  { value: 'INTERNET', label: 'Internet' },
+  { value: 'WATER', label: 'Water' },
+  { value: 'CELLPHONE_PLAN', label: 'Cellphone Plan' },
+  { value: 'MEI', label: 'MEI' },
+  { value: 'ELECTRICITY', label: 'Electricity' },
+  { value: 'GAS', label: 'Gas' },
+  { value: 'CREDIT_CARD', label: 'Credit Card' }
+];
+
+const cardNames = ['INTER', 'ITAU', 'XP', 'PICPAY'];
+
+export default function CreateBill() {
+  const [form, setForm] = useState({
+    name: '',
+    dueDate: '',
+    email: '',
+    type: 'INTERNET',
+    cardName: ''
+  });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const payload = {
+        name: form.name,
+        dueDate: form.dueDate,
+        email: form.email,
+        type: form.type,
+      };
+      if (form.type === 'CREDIT_CARD') {
+        payload.cardName = form.cardName;
+      }
+      await createBill(payload);
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Create Bill</h2>
+      {error && <p style={{color:'red'}}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          name="name"
+          placeholder="Bill Name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="date"
+          name="dueDate"
+          value={form.dueDate}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <select name="type" value={form.type} onChange={handleChange}>
+          {billTypes.map((t) => (
+            <option key={t.value} value={t.value}>{t.label}</option>
+          ))}
+        </select>
+        {form.type === 'CREDIT_CARD' && (
+          <select name="cardName" value={form.cardName} onChange={handleChange} required>
+            <option value="" disabled>Select Card</option>
+            {cardNames.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        )}
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  );
+}
