@@ -31,44 +31,78 @@ export default function BillsList({ status }) {
     }
   };
 
-  return (
-    <div>
-      <h2>{status === 'paid' ? 'Paid Bills' : 'Unpaid Bills'}</h2>
-      <div style={{marginBottom:'1rem'}}>
-        <label>
-          Year: <input type="number" value={year} onChange={e => setYear(e.target.value)} />
-        </label>
-        <label style={{marginLeft:'1rem'}}>
-          Month: <input type="number" value={month} min="1" max="12" onChange={e => setMonth(e.target.value)} />
-        </label>
-      </div>
-      {error && <p style={{color:'red'}}>{error}</p>}
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Due Date</th>
-            <th>Email</th>
-            <th>Type</th>
-            {status === 'unpaid' && <th>Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {bills.map(b => (
-            <tr key={b.id}>
-              <td>{b.name}</td>
-              <td>{b.dueDate}</td>
-              <td>{b.email}</td>
-              <td>{b.type}</td>
-              {status === 'unpaid' && (
-                <td className="actions">
-                  <button onClick={() => handlePaid(b.id)}>Mark Paid</button>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+  const e = React.createElement;
+  return e(
+    'div',
+    null,
+    e('h2', null, status === 'paid' ? 'Paid Bills' : 'Unpaid Bills'),
+    e(
+      'div',
+      { style: { marginBottom: '1rem' } },
+      e(
+        'label',
+        null,
+        'Year: ',
+        e('input', {
+          type: 'number',
+          value: year,
+          onChange: (e2) => setYear(e2.target.value)
+        })
+      ),
+      e(
+        'label',
+        { style: { marginLeft: '1rem' } },
+        'Month: ',
+        e('input', {
+          type: 'number',
+          value: month,
+          min: '1',
+          max: '12',
+          onChange: (e2) => setMonth(e2.target.value)
+        })
+      )
+    ),
+    error && e('p', { style: { color: 'red' } }, error),
+    e(
+      'table',
+      null,
+      e(
+        'thead',
+        null,
+        e(
+          'tr',
+          null,
+          e('th', null, 'Name'),
+          e('th', null, 'Due Date'),
+          e('th', null, 'Email'),
+          e('th', null, 'Type'),
+          status === 'unpaid' && e('th', null, 'Actions')
+        )
+      ),
+      e(
+        'tbody',
+        null,
+        bills.map((b) =>
+          e(
+            'tr',
+            { key: b.id },
+            e('td', null, b.name),
+            e('td', null, b.dueDate),
+            e('td', null, b.email),
+            e('td', null, b.type),
+            status === 'unpaid' &&
+              e(
+                'td',
+                { className: 'actions' },
+                e(
+                  'button',
+                  { onClick: () => handlePaid(b.id) },
+                  'Mark Paid'
+                )
+              )
+          )
+        )
+      )
+    )
   );
 }
