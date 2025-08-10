@@ -1,6 +1,6 @@
-import React from 'https://esm.sh/react@18';
-import { createRoot } from 'https://esm.sh/react-dom@18/client';
-import { BrowserRouter, Routes, Route } from 'https://esm.sh/react-router-dom@6';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './Home.js';
 import CreateBill from './CreateBill.js';

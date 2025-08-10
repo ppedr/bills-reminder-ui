@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'https://esm.sh/react@18';
+import React, { useState, useEffect } from 'react';
 import { fetchBills, markBillPaid } from './api.js';
 
 export default function BillsList({ status }) {
