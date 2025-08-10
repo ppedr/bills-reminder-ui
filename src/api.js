@@ -22,3 +22,8 @@ export async function markBillPaid(id) {
   const res = await fetch(`${API_BASE}/bills/${id}/paid`, { method: 'POST' });
   if (!res.ok) throw new Error('Failed to mark bill as paid');
 }
+
+export async function deleteBill(id) {
+  const res = await fetch(`${API_BASE}/bills/${id}`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Failed to delete bill');
+}
