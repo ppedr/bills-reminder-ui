@@ -1,4 +1,7 @@
-export const API_BASE = 'http://localhost:8015';
+// Use a relative path so the Vite dev server can proxy API requests during
+// development, avoiding cross-origin issues when the backend runs on a
+// different port.
+export const API_BASE = '/api';
 
 export async function createBill(bill) {
   const res = await fetch(`${API_BASE}/bills`, {
