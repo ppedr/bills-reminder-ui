@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createBill } from './api.js';
 
 const billTypes = [
@@ -54,6 +54,11 @@ export default function CreateBill() {
   return e(
     'div',
     null,
+    e(
+      Link,
+      { to: '/', className: 'icon', style: { marginBottom: '1rem' } },
+      '↩'
+    ),
     e('h2', null, 'Create Bill'),
     error && e('p', { style: { color: 'red' } }, error),
     e(
