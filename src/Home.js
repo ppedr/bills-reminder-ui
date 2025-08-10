@@ -1,11 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const e = React.createElement;
+  const navigate = useNavigate();
   return e(
     'div',
     null,
+    e(
+      'span',
+      {
+        className: 'icon',
+        onClick: () => navigate(-1),
+        style: { marginBottom: '1rem', cursor: 'pointer' }
+      },
+      '↩'
+    ),
     e('h1', null, 'Bills Reminder'),
     e(
       'nav',
