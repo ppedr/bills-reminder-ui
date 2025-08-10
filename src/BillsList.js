@@ -4,7 +4,7 @@ import { fetchBills, markBillPaid, deleteBill } from './api.js';
 export default function BillsList({ status }) {
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
-  const [month, setMonth] = useState(now.getMonth() + 1);
+  const [month, setMonth] = useState(String(now.getMonth() + 1));
   const [bills, setBills] = useState([]);
   const [error, setError] = useState('');
 
@@ -62,13 +62,27 @@ export default function BillsList({ status }) {
         'label',
         { style: { marginLeft: '1rem' } },
         'Month: ',
-        e('input', {
-          type: 'number',
-          value: month,
-          min: '1',
-          max: '12',
-          onChange: (e2) => setMonth(e2.target.value)
-        })
+        e(
+          'select',
+          {
+            value: month,
+            onChange: (e2) => setMonth(e2.target.value)
+          },
+          [
+            e('option', { value: '1' }, 'January'),
+            e('option', { value: '2' }, 'February'),
+            e('option', { value: '3' }, 'March'),
+            e('option', { value: '4' }, 'April'),
+            e('option', { value: '5' }, 'May'),
+            e('option', { value: '6' }, 'June'),
+            e('option', { value: '7' }, 'July'),
+            e('option', { value: '8' }, 'August'),
+            e('option', { value: '9' }, 'September'),
+            e('option', { value: '10' }, 'October'),
+            e('option', { value: '11' }, 'November'),
+            e('option', { value: '12' }, 'December')
+          ]
+        )
       )
     ),
     error && e('p', { style: { color: 'red' } }, error),
