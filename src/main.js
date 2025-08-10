@@ -1,29 +1,42 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import Home from './Home.js';
 import CreateBill from './CreateBill.js';
 import BillsList from './BillsList.js';
 
-function App() {
+function Layout() {
   const e = React.createElement;
+  const location = useLocation();
+  const navigate = useNavigate();
   return e(
-    BrowserRouter,
-    null,
-    e(
-      'div',
-      { className: 'container' },
+    'div',
+    { className: 'container' },
+    location.pathname !== '/' &&
       e(
-        Routes,
-        null,
-        e(Route, { path: '/', element: e(Home) }),
-        e(Route, { path: '/create', element: e(CreateBill) }),
-        e(Route, { path: '/paid', element: e(BillsList, { status: 'paid' }) }),
-        e(Route, { path: '/unpaid', element: e(BillsList, { status: 'unpaid' }) })
-      )
+        'span',
+        {
+          className: 'icon',
+          onClick: () => navigate(-1),
+          style: { marginBottom: '1rem', cursor: 'pointer' }
+        },
+        '↩'
+      ),
+    e(
+      Routes,
+      null,
+      e(Route, { path: '/', element: e(Home) }),
+      e(Route, { path: '/create', element: e(CreateBill) }),
+      e(Route, { path: '/paid', element: e(BillsList, { status: 'paid' }) }),
+      e(Route, { path: '/unpaid', element: e(BillsList, { status: 'unpaid' }) })
     )
   );
+}
+
+function App() {
+  const e = React.createElement;
+  return e(BrowserRouter, null, e(Layout));
 }
 
 createRoot(document.getElementById('root')).render(React.createElement(App));

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchBills, markBillPaid } from './api.js';
 
 export default function BillsList({ status }) {
@@ -36,11 +35,6 @@ export default function BillsList({ status }) {
   return e(
     'div',
     null,
-    e(
-      Link,
-      { to: '/', className: 'icon', style: { marginBottom: '1rem' } },
-      '↩'
-    ),
     e('h2', null, status === 'paid' ? 'Paid Bills' : 'Unpaid Bills'),
     e(
       'div',
