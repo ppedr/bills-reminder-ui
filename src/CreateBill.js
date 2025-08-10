@@ -1,5 +1,5 @@
-import React, { useState } from 'https://esm.sh/react@18';
-import { useNavigate } from 'https://esm.sh/react-router-dom@6';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createBill } from './api.js';
 
 const billTypes = [
