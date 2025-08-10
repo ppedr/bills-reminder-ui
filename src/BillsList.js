@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchBills, markBillPaid } from './api.js';
+import { fetchBills, markBillPaid, deleteBill } from './api.js';
 
 export default function BillsList({ status }) {
   const now = new Date();
@@ -25,6 +25,15 @@ export default function BillsList({ status }) {
   const handlePaid = async (id) => {
     try {
       await markBillPaid(id);
+      load();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteBill(id);
       load();
     } catch (err) {
       alert(err.message);
@@ -76,7 +85,7 @@ export default function BillsList({ status }) {
           e('th', null, 'Due Date'),
           e('th', null, 'Email'),
           e('th', null, 'Type'),
-          status === 'unpaid' && e('th', null, 'Actions')
+          e('th', null, 'Actions')
         )
       ),
       e(
@@ -90,16 +99,24 @@ export default function BillsList({ status }) {
             e('td', null, b.dueDate),
             e('td', null, b.email),
             e('td', null, b.type),
-            status === 'unpaid' &&
-              e(
-                'td',
-                { className: 'actions' },
+            e(
+              'td',
+              { className: 'actions' },
+              status === 'unpaid' &&
                 e(
                   'button',
                   { onClick: () => handlePaid(b.id) },
                   'Mark Paid'
-                )
+                ),
+              e(
+                'button',
+                {
+                  onClick: () => handleDelete(b.id),
+                  style: { marginLeft: status === 'unpaid' ? '0.5rem' : 0 }
+                },
+                'Delete'
               )
+            )
           )
         )
       )
