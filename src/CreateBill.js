@@ -9,7 +9,8 @@ const billTypes = [
   { value: 'MEI', label: 'MEI' },
   { value: 'ELECTRICITY', label: 'Electricity' },
   { value: 'GAS', label: 'Gas' },
-  { value: 'CREDIT_CARD', label: 'Credit Card' }
+  { value: 'CREDIT_CARD', label: 'Credit Card' },
+  { value: 'OTHER', label: 'Other' }
 ];
 
 const cardNames = ['INTER', 'ITAU', 'XP', 'PICPAY'];
