@@ -12,6 +12,7 @@ export default function BillsList({ status }) {
     setError('');
     try {
       const data = await fetchBills(status, year, month);
+      data.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
       setBills(data);
     } catch (err) {
       setError(err.message);
@@ -120,7 +121,7 @@ export default function BillsList({ status }) {
                 e(
                   'button',
                   { onClick: () => handlePaid(b.id) },
-                  'Mark Paid'
+                  'mark it as paid'
                 ),
               e(
                 'button',
@@ -128,7 +129,7 @@ export default function BillsList({ status }) {
                   onClick: () => handleDelete(b.id),
                   style: { marginLeft: status === 'unpaid' ? '0.5rem' : 0 }
                 },
-                'Delete'
+                'delete'
               )
             )
           )
